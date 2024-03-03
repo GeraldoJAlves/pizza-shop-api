@@ -15,6 +15,20 @@
       "when": 1709502576761,
       "tag": "0001_striped_fat_cobra",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1709502917047,
+      "tag": "0002_short_the_fury",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1709503135573,
+      "tag": "0003_square_thanos",
+      "breakpoints": true
     }
   ]
 }
