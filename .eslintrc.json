@@ -1,7 +1,11 @@
 {
-  "extends": "@rocketseat/eslint-config/node",
+  "extends": [
+    "@rocketseat/eslint-config/node",
+    "plugin:drizzle/all"
+  ],
   "plugins": [
-    "simple-import-sort"
+    "simple-import-sort",
+    "drizzle"
   ],
   "rules": {
     "simple-import-sort/imports": "error"
