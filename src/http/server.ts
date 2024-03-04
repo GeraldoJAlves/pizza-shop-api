@@ -1,5 +1,6 @@
 import { Elysia } from 'elysia'
 
+import { env } from '../env'
 import { authenticateFromLink } from './routes/authenticate-from-link'
 import { registerRestaurant } from './routes/register-restaurant'
 import { sendAuthLink } from './routes/send-auth-link'
@@ -9,6 +10,6 @@ const app = new Elysia()
   .use(sendAuthLink)
   .use(authenticateFromLink)
 
-app.listen(3333, () => {
-  console.log('🔥 Server started on http://localhost:3333')
+app.listen(env.API_PORT, () => {
+  console.log('🔥 Server started on ', env.API_BASE_URL)
 })

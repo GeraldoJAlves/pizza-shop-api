@@ -8,8 +8,8 @@ import { auth } from '../auth'
 
 export const authenticateFromLink = new Elysia().use(auth).get(
   'auth-links/authenticate',
-  async ({ params, set, jwt, setCookie }) => {
-    const { code, redirect } = params
+  async ({ query, set, jwt, setCookie }) => {
+    const { code, redirect } = query
 
     const authLinkFromCode = await db.query.authLinks.findFirst({
       where(fields, { eq }) {
@@ -17,8 +17,8 @@ export const authenticateFromLink = new Elysia().use(auth).get(
       },
     })
 
-    set.status = 'No Content'
     if (!authLinkFromCode) {
+      set.status = 'Unauthorized'
       return
     }
 
@@ -28,10 +28,12 @@ export const authenticateFromLink = new Elysia().use(auth).get(
     )
 
     if (daysSinceAuthLinkWasCreated > 7) {
+      set.status = 'Gone'
       await db.delete(authLinks).where(eq(authLinks.code, code))
       return
     }
 
+    set.status = 'No Content'
     const restaurant = await db.query.restaurants.findFirst({
       where(fields, { eq }) {
         return eq(fields.managerId, authLinkFromCode.userId)
@@ -54,9 +56,9 @@ export const authenticateFromLink = new Elysia().use(auth).get(
     set.redirect = redirect
   },
   {
-    params: t.Object({
+    query: t.Object({
       code: t.String(),
-      redirect: t.String({ format: 'uri' }),
+      redirect: t.String(),
     }),
   },
 )
