@@ -5,11 +5,12 @@ import { auth } from '../auth'
 
 export const managedRestaurant = new Elysia()
   .use(auth)
-  .get('/managed-restaurant', async ({ getCurrentUser }) => {
+  .get('/managed-restaurant', async ({ getCurrentUser, set }) => {
     const { restaurantId } = await getCurrentUser()
 
     if (!restaurantId) {
-      throw new NotFoundError()
+      set.status = 'Forbidden'
+      return
     }
 
     const restaurant = await db.query.restaurants.findFirst({
