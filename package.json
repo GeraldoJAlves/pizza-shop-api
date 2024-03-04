@@ -24,6 +24,7 @@
     "dayjs": "^1.11.10",
     "drizzle-orm": "^0.29.4",
     "elysia": "^0.8.17",
+    "nodemailer": "^6.9.11",
     "postgres": "^3.4.3",
     "zod": "^3.22.4"
   },
