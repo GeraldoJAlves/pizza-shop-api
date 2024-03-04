@@ -1,16 +1,15 @@
-import { Elysia } from 'elysia'
+import { Elysia, NotFoundError } from 'elysia'
 
 import { db } from '../../db/connection'
 import { auth } from '../auth'
 
 export const managedRestaurant = new Elysia()
   .use(auth)
-  .get('/managed-restaurant', async ({ getCurrentUser, set }) => {
+  .get('/managed-restaurant', async ({ getCurrentUser }) => {
     const { restaurantId } = await getCurrentUser()
 
     if (!restaurantId) {
-      set.status = 'Not Found'
-      return
+      throw new NotFoundError()
     }
 
     const restaurant = await db.query.restaurants.findFirst({
@@ -20,8 +19,7 @@ export const managedRestaurant = new Elysia()
     })
 
     if (!restaurant) {
-      set.status = 'Not Found'
-      return
+      throw new NotFoundError()
     }
 
     return restaurant

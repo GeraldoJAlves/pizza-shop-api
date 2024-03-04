@@ -37,7 +37,7 @@ export const sendAuthLink = new Elysia().post(
   },
   {
     body: t.Object({
-      email: t.String({ format: 'email' }),
+      email: t.String({ format: 'email', default: '' }),
     }),
   },
 )

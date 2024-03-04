@@ -1,16 +1,12 @@
-import { Elysia } from 'elysia'
+import { Elysia, NotFoundError } from 'elysia'
 
 import { db } from '../../db/connection'
 import { auth } from '../auth'
 
 export const getProfile = new Elysia()
   .use(auth)
-  .get('/me', async ({ getCurrentUser, set }) => {
+  .get('/me', async ({ getCurrentUser }) => {
     const { userId } = await getCurrentUser()
-
-    if (!userId) {
-      return
-    }
 
     const user = await db.query.users.findFirst({
       where(fields, { eq }) {
@@ -19,7 +15,7 @@ export const getProfile = new Elysia()
     })
 
     if (!user) {
-      set.status = 'Not Found'
+      throw new NotFoundError()
     }
 
     return user

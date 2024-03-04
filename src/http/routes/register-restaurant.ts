@@ -29,7 +29,7 @@ export const registerRestaurant = new Elysia().post(
     body: t.Object({
       restaurantName: t.String(),
       managerName: t.String(),
-      email: t.String({ format: 'email' }),
+      email: t.String({ format: 'email', default: '' }),
       phone: t.String(),
     }),
   },
