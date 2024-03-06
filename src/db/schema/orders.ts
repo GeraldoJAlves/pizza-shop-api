@@ -3,6 +3,7 @@ import { relations } from 'drizzle-orm'
 import { integer, pgEnum, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
 import { restaurants, users } from '.'
+import { orderItems } from './order-items'
 
 export const orderStatusEnum = pgEnum('order_status', [
   'pending',
@@ -16,18 +17,22 @@ export const orders = pgTable('orders', {
   id: text('id')
     .$defaultFn(() => createId())
     .primaryKey(),
-  customerId: text('customer_id').references(() => users.id, {
-    onDelete: 'set null',
-  }),
-  restaurantId: text('restaurant_id').references(() => restaurants.id, {
-    onDelete: 'cascade',
-  }),
+  customerId: text('customer_id')
+    .references(() => users.id, {
+      onDelete: 'set null',
+    })
+    .notNull(),
+  restaurantId: text('restaurant_id')
+    .references(() => restaurants.id, {
+      onDelete: 'cascade',
+    })
+    .notNull(),
   status: orderStatusEnum('status').default('pending').notNull(),
   totalInCents: integer('total_in_cents').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
 })
 
-export const ordersRelations = relations(orders, ({ one }) => {
+export const ordersRelations = relations(orders, ({ one, many }) => {
   return {
     customer: one(users, {
       fields: [orders.customerId],
@@ -39,5 +44,6 @@ export const ordersRelations = relations(orders, ({ one }) => {
       references: [restaurants.id],
       relationName: 'order_restaurant',
     }),
+    orderItems: many(orderItems),
   }
 })

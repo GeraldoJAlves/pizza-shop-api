@@ -5,9 +5,11 @@ import chalk from 'chalk'
 
 import { db } from './connection'
 import { authLinks, orders, products, restaurants, users } from './schema'
+import { orderItems } from './schema/order-items'
 
 await db.delete(restaurants)
 await db.delete(authLinks)
+await db.delete(orderItems)
 await db.delete(users)
 await db.delete(orders)
 await db.delete(products)
