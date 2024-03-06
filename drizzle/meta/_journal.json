@@ -43,6 +43,13 @@
       "when": 1709763534759,
       "tag": "0005_dear_vampiro",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1709764397233,
+      "tag": "0006_past_living_mummy",
+      "breakpoints": true
     }
   ]
 }

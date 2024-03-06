@@ -4,12 +4,13 @@ import { faker } from '@faker-js/faker'
 import chalk from 'chalk'
 
 import { db } from './connection'
-import { authLinks, orders, restaurants, users } from './schema'
+import { authLinks, orders, products, restaurants, users } from './schema'
 
 await db.delete(restaurants)
 await db.delete(authLinks)
 await db.delete(users)
 await db.delete(orders)
+await db.delete(products)
 
 console.log(chalk.yellow('✔️ Dabatase reset!'))
 
