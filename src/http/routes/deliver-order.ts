@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { Elysia, t } from 'elysia'
 
 import { db } from '../../db/connection'
@@ -18,7 +18,10 @@ export const deliverOrder = new Elysia().use(auth).patch(
 
     const order = await db.query.orders.findFirst({
       where(fields, { eq }) {
-        return eq(fields.id, orderId)
+        return and(
+          eq(fields.id, orderId),
+          eq(fields.restaurantId, restaurantId),
+        )
       },
     })
 
