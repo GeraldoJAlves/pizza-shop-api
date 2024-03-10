@@ -8,12 +8,12 @@ import { db } from './connection'
 import { authLinks, orders, products, restaurants, users } from './schema'
 import { orderItems } from './schema/order-items'
 
-await db.delete(users)
-await db.delete(orderItems)
-await db.delete(orders)
-await db.delete(products)
-await db.delete(restaurants)
 await db.delete(authLinks)
+await db.delete(orderItems)
+await db.delete(products)
+await db.delete(orders)
+await db.delete(restaurants)
+await db.delete(users)
 
 console.log(chalk.yellow('✔️ Dabatase reset!'))
 
