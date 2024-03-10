@@ -10,6 +10,7 @@ import { getDailyReceiptInPeriod } from './routes/get-daily-receipt-in-period'
 import { getMonthReceipt } from './routes/get-month-receipt'
 import { getOrderDetails } from './routes/get-order-details'
 import { getOrders } from './routes/get-orders'
+import { getPopularProducts } from './routes/get-popular-products'
 import { getProfile } from './routes/get-profile'
 import { managedRestaurant } from './routes/managed-restaurant'
 import { registerRestaurant } from './routes/register-restaurant'
@@ -31,6 +32,7 @@ const app = new Elysia()
   .use(dispatchOrder)
   .use(getDailyReceiptInPeriod)
   .use(getMonthReceipt)
+  .use(getPopularProducts)
   .onError(({ code, error, set }) => {
     switch (code) {
       case 'VALIDATION': {
