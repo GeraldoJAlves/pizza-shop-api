@@ -20,9 +20,16 @@ import { managedRestaurant } from './routes/managed-restaurant'
 import { registerRestaurant } from './routes/register-restaurant'
 import { sendAuthLink } from './routes/send-auth-link'
 import { signOut } from './routes/sign-out'
+import { updateProfile } from './routes/update-profile'
 
 const app = new Elysia()
-  .use(cors())
+  .use(
+    cors({
+      methods: ['GET', 'HEAD', 'OPTIONS', 'POST', 'PUT'],
+      allowedHeaders:
+        'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
+    }),
+  )
   .use(registerRestaurant)
   .use(sendAuthLink)
   .use(authenticateFromLink)
@@ -41,6 +48,7 @@ const app = new Elysia()
   .use(getMonthOrdersAmount)
   .use(getMonthCanceledOrdersAmount)
   .use(getDayOrdersAmount)
+  .use(updateProfile)
   .onError(({ code, error, set }) => {
     switch (code) {
       case 'VALIDATION': {
