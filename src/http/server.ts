@@ -25,7 +25,7 @@ import { updateProfile } from './routes/update-profile'
 const app = new Elysia()
   .use(
     cors({
-      methods: ['GET', 'HEAD', 'OPTIONS', 'POST', 'PUT'],
+      methods: ['GET', 'HEAD', 'PATCH', 'OPTIONS', 'POST', 'PUT'],
       allowedHeaders:
         'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
     }),
